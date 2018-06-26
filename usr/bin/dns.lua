@@ -4,7 +4,7 @@ local shell = require("shell")
 local dns = require("dns")
 local Instance = require("Instance")
 local args, ops = shell.parse(...)
-assert(comp.isAvailable("modem"), "You need a network card to use the dns service")
+assert(pcall(comp.getPrimary("modem"))
 if not ops["h"] and not ops["r"]then
 dns.lookup(args[0])
 elseif ops["h"] and not ops["r"]then
