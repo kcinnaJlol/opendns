@@ -4,11 +4,11 @@ local shell = require("shell")
 local dns = require("dns")
 local Instance = require("Instance")
 local args, ops = shell.parse(...)
-assert(pcall(comp.getPrimary("modem"))
+assert(comp.isAvailable("modem"))
 if not ops["h"] and not ops["r"]then
-dns.lookup(args[0])
+lookup(args[1])
 elseif ops["h"] and not ops["r"]then
-dns.new()
+new()
 elseif not ops["h"] and ops["r"]then
-dns.register(comp.getPrimary("modem").address, args[0])
+register(comp.getPrimary("modem").address, args[0])
 end

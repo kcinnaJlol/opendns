@@ -1,0 +1,6 @@
+local comp = require("component")
+local shell = require("shell")
+local dns = require("dns")
+local args, ops = shell.parse(...)
+assert(comp.isAvailable("modem"))
+new()

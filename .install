@@ -1,0 +1,27 @@
+local filesystem = require("filesystem")
+write("What type of dns do you want to install?\n")
+local types = {
+{name="Dns full edition", path=_ENV.install.from.."/full"},
+{name="Dns server edition", path=_ENV.install.from.."/server"},
+{name="Dns home edition", path=_ENV.install.from.."/home"}
+}
+for i, d in pairs(types) do
+write(tostring(i)..") "..d.name.."\n")
+end
+write("Please enter a number between 1 and "..tostring(#types + 1)..": ")
+repeat
+local seltype = string.read()
+until seltype
+local selpath = types[seltype].path
+local function iterate(selpath, callee)
+for file in filesystem.list(selpath) do
+if string.sub(file,-1) == "/" then
+iterate(selpath..file, callee)
+else
+callee(selpath, file)
+end
+end
+end
+local function callee(path, file)
+filesystem.copy(file, _ENV.install.to..string.sub(path, #selpath + 1)..file)
+end
